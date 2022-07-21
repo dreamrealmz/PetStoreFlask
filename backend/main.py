@@ -1,7 +1,8 @@
 from app_config import app, db # noqa
-from routes import pets_blueprint, swagger_blueprint, swagger_json_blueprint
-from models import Pets  # noqa
+from routes import pets_blueprint, swagger_blueprint, swagger_json_blueprint, breeds_blueprint
+from models import Breeds, Pets  # noqa
 
+app.register_blueprint(breeds_blueprint)
 app.register_blueprint(pets_blueprint)
 app.register_blueprint(swagger_json_blueprint)
 app.register_blueprint(swagger_blueprint)
