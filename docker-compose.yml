@@ -17,6 +17,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     command: python3 main.py
+    entrypoint: sh ./run.sh
     restart: always
     env_file:
       - ./.env
