@@ -12,10 +12,15 @@ blueprint = Blueprint('pets', __name__)
 def pets():
     if request.method == "GET":
         return {
-            'result': [{pet_id: pet_name} for pet_id, pet_name in db.session.query(Pets.id, Pets.name)]
+            'result': [
+                {
+                    'id': pet_id,
+                    'name':pet_name,
+                } for pet_id, pet_name in db.session.query(Pets.id, Pets.name)
+            ]
         }
     if request.method == "POST":
-        data = request.get_json()
+        data = request.json
         new_pet = Pets(name=data['name'])
         db.session.add(new_pet)
         db.session.commit()
