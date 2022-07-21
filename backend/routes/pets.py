@@ -15,6 +15,7 @@ def pets():
             'result': [
                 {
                     'id': pet_id,
+
                     'name': pet_name,
                     'breed_name': breed_name
                 } for pet_id, pet_name, breed_name in db.session.query(Pets.id, Pets.name, Pets.breed_id.name)
