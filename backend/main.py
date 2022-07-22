@@ -7,5 +7,4 @@ app.register_blueprint(swagger_json_blueprint)
 app.register_blueprint(swagger_blueprint)
 
 if __name__ == '__main__':
-    # у меня подключение через http://192.168.1.133:8000
     app.run(host='0.0.0.0')
