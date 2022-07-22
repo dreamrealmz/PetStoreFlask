@@ -8,3 +8,5 @@ docker-compose build
 docker-compose up
 
 # наслаждаемся
+
+# P.S. после свитча ветки нужно перезапустить контейнер веба
