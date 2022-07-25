@@ -8,7 +8,7 @@ def swag():
     return {
         "openapi": "3.0.0",
         "info": {
-            "version": "1.0.1",
+            "version": "1.0.2",
             "title": "Swagger Petstore",
             "license": {
                 "name": "MIT"
@@ -16,10 +16,70 @@ def swag():
         },
         "servers": [
             {
-                "url": "http://localhost:8000/petstore_api/"
+                "url": "http://localhost:5000/petstore_api"
             }
         ],
         "paths": {
+            "/breeds": {
+                "get": {
+                    "summary": "List all breeds",
+                    "operationId": "listBreeds",
+                    "tags": [
+                        "breeds"
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "List of breeds",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "$ref": "#/components/schemas/Breeds"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "post": {
+                    "summary": "Create a breed",
+                    "operationId": "createBreed",
+                    "tags": [
+                        "breeds"
+                    ],
+                    "requestBody": {
+                        "required": True,
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BreedIn"
+                                }
+                            }
+                        }
+                    },
+                    "responses": {
+                        "201": {
+                            "description": "Created breed response",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "$ref": "#/components/schemas/BreedOut"
+                                    }
+                                }
+                            }
+                        },
+                        "default": {
+                            "description": "unexpected error",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "$ref": "#/components/schemas/Error"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "/pets": {
                 "get": {
                     "summary": "List all pets",
@@ -83,6 +143,38 @@ def swag():
         },
         "components": {
             "schemas": {
+                "BreedIn": {
+                    "type": "object",
+                    "required": [
+                        "name"
+                    ],
+                    "properties": {
+                        "name": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "BreedOut": {
+                    "allOf": [
+                        {
+                            "$ref": "#/components/schemas/BreedIn"
+                        },
+                        {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    ]
+                },
+                "Breeds": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/components/schemas/BreedOut"
+                    }
+                },
                 "PetIn": {
                     "type": "object",
                     "required": [
@@ -91,6 +183,9 @@ def swag():
                     "properties": {
                         "name": {
                             "type": "string"
+                        },
+                        "breed_id": {
+                            "type": "integer"
                         }
                     }
                 },
@@ -105,6 +200,9 @@ def swag():
                             "type": "integer"
                         },
                         "name": {
+                            "type": "string"
+                        },
+                        "breed_name": {
                             "type": "string"
                         }
                     }
